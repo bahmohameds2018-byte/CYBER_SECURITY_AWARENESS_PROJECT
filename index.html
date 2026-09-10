@@ -8,11 +8,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --primary-blue: #2563eb;
-            --primary-gold: #f59e0b;
-            --accent-cyan: #06b6d4;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
+            /* Global Base Variables */
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            
+            /* Theme 1: Home - Deep Slate & Cyber Blue */
+            --bg-home: #030712;
+            --header-home: #0b1329;
+            --accent-home: #2563eb;
+            --text-home: #f8fafc;
+            
+            /* Theme 2: About Us - Emerald & Gold Academic */
+            --bg-about: #022c22;
+            --accent-about: #10b981;
+            --gold-about: #fbbf24;
+            --text-about: #ecfdf5;
+            
+            /* Theme 3: Blog/Feedback - Warm Bronze & Amber */
+            --bg-blog: #1f1300;
+            --accent-blog: #f59e0b;
+            --text-blog: #fffbeb;
+            
+            /* Theme 4: Training Portal - Midnight Purple & Cyber Cyan */
+            --bg-training: #090514;
+            --accent-training: #06b6d4;
+            --neon-training: #a855f7;
+            --text-training: #f3e8ff;
+            
+            /* Sierra Leone Theme Colors */
+            --sl-green: #008751;
+            --sl-white: #ffffff;
+            --sl-blue: #0052b4;
+            
+            /* State Colors */
             --success: #10b981;
             --danger: #ef4444;
         }
@@ -25,103 +53,121 @@
         }
 
         body {
-            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-color: #050811;
+            background-color: var(--bg-home);
+            color: var(--text-home);
+            transition: background-color var(--transition-speed) ease;
         }
+
+        /* DYNAMIC BODY THEME SWITCHING */
+        body.theme-home { background-color: var(--bg-home); color: var(--text-home); }
+        body.theme-about { background-color: var(--bg-about); color: var(--text-about); }
+        body.theme-blog { background-color: var(--bg-blog); color: var(--text-blog); }
+        body.theme-training { background-color: var(--bg-training); color: var(--text-training); }
 
         /* HEADER & NAVIGATION */
         header {
-            background: linear-gradient(180deg, #0f172a 0%, #090d16 100%);
-            border-bottom: 2px solid #1e293b;
-            padding: 16px 30px;
+            background: rgba(11, 19, 41, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            flex-wrap: wrap;
-            gap: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
+
+        /* Header Color Accents Per Theme */
+        body.theme-home header { background: #091024; border-bottom-color: var(--accent-home); }
+        body.theme-about header { background: #022019; border-bottom-color: var(--accent-about); }
+        body.theme-blog header { background: #170d00; border-bottom-color: var(--accent-blog); }
+        body.theme-training header { background: #0d061f; border-bottom-color: var(--accent-training); }
 
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .shield-logo-svg {
-            width: 48px;
-            height: 52px;
-            filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+            width: 42px;
+            height: 48px;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
             transition: transform 0.3s ease;
         }
 
-        .shield-logo-svg:hover {
-            transform: scale(1.08);
-        }
+        .shield-logo-svg:hover { transform: scale(1.05); }
 
         .brand-text h1 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 800;
-            letter-spacing: 0.8px;
-            background: linear-gradient(135deg, #ffffff 30%, var(--primary-gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
+            color: #ffffff;
         }
 
         .brand-text span {
             font-size: 11px;
-            color: var(--accent-cyan);
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 600;
+            opacity: 0.85;
         }
 
+        /* NAV STYLES */
         nav ul {
             display: flex;
             list-style: none;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 8px;
         }
 
         nav a {
             color: #cbd5e1;
             text-decoration: none;
             font-weight: 600;
-            font-size: 14px;
-            padding: 10px 18px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
+            font-size: 13.5px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all var(--transition-speed) ease;
             border: 1px solid transparent;
             cursor: pointer;
+            display: inline-block;
         }
 
         nav a:hover {
             color: #ffffff;
-            background: rgba(37, 99, 235, 0.2);
-            border-color: rgba(37, 99, 235, 0.5);
-            box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        nav a.active {
-            color: #ffffff;
-            background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
-            border-color: var(--primary-gold);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        /* Active Nav Pill Colors Per Theme */
+        body.theme-home nav a.active { background: var(--accent-home); color: #fff; box-shadow: 0 0 12px rgba(37, 99, 235, 0.5); }
+        body.theme-about nav a.active { background: var(--accent-about); color: #022c22; font-weight: 700; box-shadow: 0 0 12px rgba(16, 185, 129, 0.5); }
+        body.theme-blog nav a.active { background: var(--accent-blog); color: #1f1300; font-weight: 700; box-shadow: 0 0 12px rgba(245, 158, 11, 0.5); }
+        body.theme-training nav a.active { background: var(--accent-training); color: #090514; font-weight: 700; box-shadow: 0 0 12px rgba(6, 182, 212, 0.5); }
+
+        /* MOBILE MENU TOGGLE */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
         }
 
         main {
             flex: 1;
-            max-width: 1150px;
+            max-width: 1200px;
             width: 100%;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: 25px auto;
+            padding: 0 16px;
         }
 
         .hidden { display: none !important; }
@@ -129,359 +175,298 @@
         /* BUTTON STYLES */
         .btn {
             display: inline-block;
-            padding: 13px 26px;
+            padding: 12px 24px;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             border: none;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            text-align: center;
         }
 
-        .btn-gold {
-            background: linear-gradient(135deg, var(--primary-gold), #d97706);
-            color: #000000;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
-            background: linear-gradient(135deg, #fbbf24, var(--primary-gold));
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid #334155;
-            color: #cbd5e1;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-cyan);
-            color: #ffffff;
-            background: rgba(6, 182, 212, 0.1);
-        }
-
-        /* PAGE 1: HOME PAGE */
+        /* PAGE 1: HOME PAGE (Deep Slate & Blue Theme) */
         #page-home {
-            background-color: #080c1e;
-            border-radius: 16px;
-            padding: 20px;
+            background: linear-gradient(135deg, #091024 0%, #030712 100%);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid #1e293b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .home-hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            border: 1px solid #312e81;
-            border-radius: 16px;
-            padding: 50px 30px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: var(--border-radius);
+            padding: 40px 24px;
             text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            margin-bottom: 25px;
         }
 
         .home-hero h2 {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 900;
             color: #ffffff;
-            margin-bottom: 15px;
-            line-height: 1.3;
+            margin-bottom: 12px;
         }
 
-        .home-hero h2 span {
-            color: var(--primary-gold);
-            text-decoration: underline;
-            text-decoration-color: var(--accent-cyan);
-        }
+        .home-hero h2 span { color: #60a5fa; }
 
         .home-hero p {
-            font-size: 17px;
+            font-size: 16px;
             color: #94a3b8;
-            max-width: 800px;
-            margin: 0 auto 25px auto;
-            line-height: 1.7;
+            max-width: 750px;
+            margin: 0 auto 20px auto;
+            line-height: 1.6;
         }
+
+        .btn-home-primary {
+            background: #2563eb;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-home-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+
+        .btn-home-secondary {
+            background: transparent;
+            border: 1px solid #475569;
+            color: #cbd5e1;
+        }
+
+        .btn-home-secondary:hover { background: rgba(255,255,255,0.05); color: #fff; }
 
         .stats-banner {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 25px;
         }
 
         .stat-card {
-            background: #0d1527;
+            background: #0b1329;
             border: 1px solid #1e293b;
-            border-top: 4px solid var(--accent-cyan);
-            border-radius: 12px;
-            padding: 20px;
+            border-top: 3px solid #3b82f6;
+            border-radius: var(--border-radius);
+            padding: 18px;
             text-align: center;
         }
 
-        .stat-card h3 {
-            font-size: 32px;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
+        .stat-card h3 { font-size: 28px; color: #60a5fa; margin-bottom: 4px; }
+        .stat-card p { font-size: 12.5px; color: #94a3b8; }
 
-        .stat-card p {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .sl-focus-box {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid #334155;
-            border-left: 6px solid var(--primary-gold);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        /* PAGE 2: ABOUT US */
+        /* PAGE 2: ABOUT US (Emerald & Gold Academic Theme) */
         #page-about {
-            background-color: #031811;
-            border-radius: 16px;
-            padding: 35px;
-            border: 1px solid #065f46;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(135deg, #022019 0%, #022c22 100%);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid #047857;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
-        #page-about h2.section-title {
-            color: #10b981;
-            font-size: 28px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #047857;
-            padding-bottom: 10px;
+        .about-title {
+            color: #34d399;
+            font-size: 26px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #059669;
+            padding-bottom: 8px;
         }
 
         .research-badge {
             display: inline-block;
-            background-color: #064e3b;
-            color: #6ee7b7;
-            padding: 6px 14px;
+            background: #064e3b;
+            color: #a7f3d0;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
             border: 1px solid #059669;
         }
 
         .profile-card {
-            background: #062319;
-            border: 1px solid #047857;
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 25px;
-        }
-
-        .profile-card h3 {
-            color: #f59e0b;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
+            background: #03382c;
+            border: 1px solid #059669;
+            border-radius: var(--border-radius);
+            padding: 22px;
             margin-top: 20px;
         }
 
+        .profile-card h3 { color: var(--gold-about); font-size: 20px; margin-bottom: 8px; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
         .contact-item {
-            background: #02120d;
-            border: 1px solid #059669;
-            padding: 15px;
+            background: #011c15;
+            border: 1px solid #047857;
+            padding: 12px;
             border-radius: 8px;
         }
 
-        .contact-item strong {
-            color: #34d399;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 13px;
-            text-transform: uppercase;
-        }
+        .contact-item strong { color: #34d399; display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; }
 
-        /* PAGE 3: BLOG & FEEDBACK */
+        /* PAGE 3: BLOG & FEEDBACK (Warm Bronze & Amber Theme) */
         #page-blog {
-            background-color: #181108;
-            border-radius: 16px;
+            background: linear-gradient(135deg, #170d00 0%, #261600 100%);
+            border-radius: var(--border-radius);
             padding: 30px;
             border: 1px solid #78350f;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
-        .blog-title-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .blog-title-header h2 {
-            color: var(--primary-gold);
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
+        .blog-header { text-align: center; margin-bottom: 25px; }
+        .blog-header h2 { color: #f59e0b; font-size: 26px; margin-bottom: 8px; }
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
         }
 
         .blog-card {
-            background: #271a0c;
+            background: #2b1a03;
             border: 1px solid #92400e;
-            border-radius: 12px;
-            padding: 22px;
+            border-radius: var(--border-radius);
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary-gold);
         }
 
         .blog-card .tag {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 800;
-            color: #fde68a;
-            background: #451a03;
-            padding: 4px 10px;
+            color: #fef3c7;
+            background: #78350f;
+            padding: 3px 8px;
             border-radius: 4px;
             width: fit-content;
-            margin-bottom: 12px;
-            border: 1px solid #b45309;
-        }
-
-        .blog-card h4 {
-            color: #ffffff;
-            font-size: 16px;
             margin-bottom: 10px;
-            line-height: 1.4;
         }
 
-        .blog-card p {
-            color: #d1d5db;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+        .blog-card h4 { color: #fff; font-size: 15px; margin-bottom: 8px; }
+        .blog-card p { color: #fde68a; font-size: 13.5px; line-height: 1.5; }
 
-        /* PAGE 4: TRAINING & QUESTIONNAIRE */
+        /* PAGE 4: TRAINING & QUESTIONNAIRE (Midnight Purple & Cyber Cyan Theme) */
         #page-training {
-            background-color: #0d0e1a;
-            border-radius: 16px;
-            padding: 35px;
-            border: 1px solid #312e81;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(135deg, #0d061f 0%, #150933 100%);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid #581c87;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
 
         .form-card {
-            max-width: 650px;
+            max-width: 600px;
             margin: 0 auto;
-            background: #15182a;
-            border: 1px solid #3730a3;
-            border-radius: 14px;
-            padding: 30px;
+            background: #180c38;
+            border: 1px solid #6b21a8;
+            border-radius: var(--border-radius);
+            padding: 25px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 16px; }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #cbd5e1;
-            font-size: 14px;
-        }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: #e9d5ff; font-size: 13.5px; }
 
         input[type="text"], input[type="email"], select, textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 11px 14px;
             border-radius: 8px;
-            border: 1px solid #334155;
-            background-color: #0b0d17;
+            border: 1px solid #581c87;
+            background-color: #0d0521;
             color: #ffffff;
-            font-size: 15px;
+            font-size: 14.5px;
             outline: none;
-            transition: border 0.3s ease;
+            transition: border 0.25s ease;
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+        textarea { resize: vertical; min-height: 90px; }
 
         input:focus, select:focus, textarea:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+            border-color: #06b6d4;
+            box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
         }
 
         .progress-box {
             width: 100%;
-            background-color: #1e1b4b;
-            height: 12px;
-            border-radius: 6px;
-            margin-bottom: 25px;
+            background-color: #1e0e45;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
             overflow: hidden;
-            border: 1px solid #3730a3;
+            border: 1px solid #581c87;
         }
 
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--primary-gold));
+            background: linear-gradient(90deg, #06b6d4, #a855f7);
             transition: width 0.4s ease;
         }
 
         .scenario-terminal {
-            background-color: #060812;
-            border: 1px solid #312e81;
-            border-left: 5px solid var(--accent-cyan);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
+            background-color: #080314;
+            border: 1px solid #6b21a8;
+            border-left: 4px solid #06b6d4;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 20px;
             font-family: 'Courier New', Courier, monospace;
-            color: #38edf8;
-            font-size: 14px;
-            line-height: 1.6;
+            color: #67e8f9;
+            font-size: 13.5px;
+            line-height: 1.5;
             white-space: pre-wrap;
             word-break: break-word;
         }
 
         .option-button {
             width: 100%;
-            background-color: #15182a;
-            border: 1px solid #334155;
-            color: #e2e8f0;
+            background-color: #170b36;
+            border: 1px solid #4c1d95;
+            color: #f3e8ff;
             text-align: left;
-            padding: 15px 18px;
-            border-radius: 10px;
-            margin-bottom: 14px;
-            font-size: 15px;
+            padding: 13px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            line-height: 1.5;
+            transition: all 0.2s ease;
+            line-height: 1.4;
         }
 
         .option-button:hover:not([disabled]) {
-            border-color: var(--primary-gold);
-            background-color: #1e2338;
-            transform: translateX(4px);
+            border-color: #06b6d4;
+            background-color: #241052;
+            transform: translateX(3px);
+        }
+
+        .btn-training {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: #000000;
+            font-weight: 800;
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-training:hover {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            transform: translateY(-2px);
         }
 
         .feedback-box {
-            padding: 18px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 15px;
-            line-height: 1.6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         .feedback-box.correct {
@@ -497,93 +482,124 @@
         }
 
         .results-summary {
-            background: #15182a;
-            border: 1px solid #3730a3;
-            border-radius: 12px;
-            padding: 30px;
+            background: #180c38;
+            border: 1px solid #6b21a8;
+            border-radius: var(--border-radius);
+            padding: 25px;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .score-big {
-            font-size: 64px;
+            font-size: 56px;
             font-weight: 900;
             color: #ffffff;
-            margin: 15px 0;
-            background: linear-gradient(135deg, #ffffff, var(--primary-gold));
+            margin: 10px 0;
+            background: linear-gradient(135deg, #ffffff, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .badge-status {
             display: inline-block;
-            padding: 8px 20px;
-            border-radius: 30px;
+            padding: 6px 16px;
+            border-radius: 20px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .badge-pass { background-color: var(--success); color: #000; }
         .badge-fail { background-color: var(--danger); color: #fff; }
 
-        /* FEEDBACK MODAL / CONTAINER */
         .feedback-gate-box {
-            background: #111428;
-            border: 2px solid var(--primary-gold);
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: left;
-        }
-
-        .feedback-gate-box h4 {
-            color: var(--primary-gold);
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .review-item {
-            background: #111425;
-            border: 1px solid #27272a;
+            background: #12072b;
+            border: 2px solid #06b6d4;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 15px;
+            margin: 20px 0;
             text-align: left;
         }
 
-        .review-item.pass { border-left: 6px solid var(--success); }
-        .review-item.fail { border-left: 6px solid var(--danger); }
+        .feedback-gate-box h4 { color: #06b6d4; font-size: 16px; margin-bottom: 6px; }
+
+        .review-item {
+            background: #12072b;
+            border: 1px solid #3b0764;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .review-item.pass { border-left: 5px solid var(--success); }
+        .review-item.fail { border-left: 5px solid var(--danger); }
 
         footer {
             text-align: center;
-            padding: 25px 20px;
-            background-color: #070a13;
-            border-top: 1px solid #1e293b;
-            color: #64748b;
-            font-size: 13px;
-            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+            font-size: 12.5px;
+            margin-top: auto;
         }
 
-        @media (max-width: 768px) {
+        /* RESPONSIVE MEDIA QUERIES (DESKTOP, TABLET & MOBILE) */
+        @media (max-width: 868px) {
             header {
-                flex-direction: column;
-                align-items: flex-start;
+                padding: 12px 18px;
             }
-            nav ul {
+
+            .mobile-menu-btn { display: block; }
+
+            nav {
                 width: 100%;
-                justify-content: flex-start;
             }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 12px;
+                padding-top: 12px;
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
+
+            nav ul.mobile-open { display: flex; }
+
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+
+            main { margin: 15px auto; padding: 0 10px; }
+
+            #page-home, #page-about, #page-blog, #page-training {
+                padding: 20px 14px;
+            }
+
+            .home-hero { padding: 25px 14px; }
+            .home-hero h2 { font-size: 24px; }
+            .home-hero p { font-size: 14px; }
+
+            .score-big { font-size: 42px; }
+        }
+
+        @media (max-width: 480px) {
+            .brand-text h1 { font-size: 14px; }
+            .brand-text span { font-size: 9.5px; }
+            .shield-logo-svg { width: 34px; height: 40px; }
+            .btn { width: 100%; margin-right: 0; }
         }
     </style>
 </head>
-<body>
+<body class="theme-home">
 
-    <!-- HEADER WITH CYBER SHIELD LOGO (LETTER "SH") -->
+    <!-- HEADER WITH CYBER SHIELD LOGO -->
     <header>
         <div class="brand-container">
-            <!-- Custom SVG Cyber Shield Logo -->
             <svg class="shield-logo-svg" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -601,12 +617,15 @@
                 <text x="50" y="68" font-family="-apple-system, sans-serif" font-weight="900" font-size="34" fill="#ffffff" text-anchor="middle" letter-spacing="-1">SH</text>
             </svg>
             <div class="brand-text">
-                <h1>SierraShield Cyber Security Hub</h1>
-                <span>Awareness Portal for Sierra Leone SMEs</span>
+                <h1>SierraShield Cyber Hub</h1>
+                <span>Sierra Leone SME Defense</span>
             </div>
         </div>
+
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">&#9776;</button>
+
         <nav>
-            <ul>
+            <ul id="nav-menu">
                 <li><a id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
                 <li><a id="nav-about" onclick="showPage('about')">About Us</a></li>
                 <li><a id="nav-blog" onclick="showPage('blog')">Feedback & Blog</a></li>
@@ -616,21 +635,21 @@
     </header>
 
     <main>
-        <!-- PAGE 1: HOME PAGE -->
+        <!-- PAGE 1: HOME PAGE (Deep Slate & Cyber Blue) -->
         <section id="page-home">
             <div class="home-hero">
                 <h2>WELCOME TO <span>SIERRA SHIELD CYBER TRAINING CENTER</span></h2>
                 <p>Empowering Small & Medium Enterprises (SMEs) across Sierra Leone to defend against digital threats, phishing attacks, mobile money scams, and corporate data breaches.</p>
                 <div>
-                    <button class="btn btn-gold" onclick="showPage('training')">Start 10-Question Training &rarr;</button>
-                    <button class="btn btn-secondary" onclick="showPage('about')">Read Research Background</button>
+                    <button class="btn btn-home-primary" onclick="showPage('training')">Start 10-Question Training &rarr;</button>
+                    <button class="btn btn-home-secondary" onclick="showPage('about')">Read Research Background</button>
                 </div>
             </div>
 
             <div class="stats-banner">
                 <div class="stat-card">
-                    <h3>10 / 20</h3>
-                    <p>Randomized Scenarios per Session</p>
+                    <h3>10 / 50</h3>
+                    <p>Randomly Selected Scenarios</p>
                 </div>
                 <div class="stat-card">
                     <h3>100%</h3>
@@ -646,33 +665,33 @@
                 </div>
             </div>
 
-            <div class="sl-focus-box">
-                <h3><u>SIERRA SHIELD CYBER SECURITY AWARENESS FOR SMEs IN SIERRA LEONE</u></h3>
-                <p style="color: #cbd5e1; font-size: 15px; margin-bottom: 0;">
+            <div style="background: rgba(255,255,255,0.03); border-left: 4px solid #3b82f6; padding: 20px; border-radius: 8px;">
+                <h3 style="color: #60a5fa; margin-bottom: 6px;">SIERRA SHIELD CYBER SECURITY AWARENESS FOR SMEs</h3>
+                <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">
                     As businesses in Sierra Leone increasingly adopt digital banking, mobile money transfers, and cloud services, security risks expand rapidly. SierraShield delivers localized interactive training to build a strong cyber defense culture within local enterprise teams.
                 </p>
             </div>
         </section>
 
-        <!-- PAGE 2: ABOUT US PAGE -->
+        <!-- PAGE 2: ABOUT US PAGE (Emerald & Gold Academic) -->
         <section id="page-about" class="hidden">
             <span class="research-badge">Sierra Shield Research Project — SIERRA LEONE</span>
-            <h2 class="section-title">About SierraShield Cyber Security Hub</h2>
-            <p style="line-height: 1.7; margin-bottom: 15px;">
+            <h2 class="about-title">About SierraShield Cyber Security Hub</h2>
+            <p style="line-height: 1.6; margin-bottom: 12px; color: #a7f3d0; font-size: 14.5px;">
                 <strong>SierraShield Cyber Security Awareness Hub</strong> was designed specifically to target and empower small businesses in Sierra Leone. Many small businesses lack dedicated IT security departments, making them vulnerable targets for social engineering, malware, and financial scams.
             </p>
-            <p style="line-height: 1.7; margin-bottom: 20px;">
+            <p style="line-height: 1.6; margin-bottom: 18px; color: #a7f3d0; font-size: 14.5px;">
                 This platform provides hands-on, scenario-based cybersecurity training designed to measure staff awareness, correct common mistakes instantly, and generate official completion certificates.
             </p>
 
             <div class="profile-card">
                 <h3>Researcher & Lead Director</h3>
-                <p style="font-size: 17px; color: #ffffff; margin-bottom: 10px;"><strong>Mohamed Saidu Bah</strong></p>
-                <p style="color: #a7f3d0; line-height: 1.6;">
+                <p style="font-size: 17px; color: #ffffff; margin-bottom: 8px;"><strong>Mohamed Saidu Bah</strong></p>
+                <p style="color: #d1fae5; line-height: 1.6; font-size: 14px;">
                     I am a Cybersecurity practitioner and a dedicated final-year student at <strong>IMATT COLLEGE</strong>. I have been actively involved in Cyber Security for over <strong>5 years</strong>, specializing in practical skill development, vulnerability training, and raising awareness about how exposed individuals and business owners are to modern cyber threats.
                 </p>
 
-                <h4 style="color: #f59e0b; margin-top: 25px; margin-bottom: 12px; font-size: 16px;">Direct Contact Information</h4>
+                <h4 style="color: var(--gold-about); margin-top: 20px; margin-bottom: 10px; font-size: 15px;">Direct Contact Information</h4>
                 <div class="contact-grid">
                     <div class="contact-item">
                         <strong>Full Name</strong>
@@ -698,11 +717,11 @@
             </div>
         </section>
 
-        <!-- PAGE 3: BLOG & FEEDBACK PAGE -->
+        <!-- PAGE 3: BLOG & FEEDBACK PAGE (Warm Bronze & Amber) -->
         <section id="page-blog" class="hidden">
-            <div class="blog-title-header">
+            <div class="blog-header">
                 <h2>Trainee Feedback & Case Studies</h2>
-                <p style="color: #d1d5db;">Feedback stories from local trainees and small business operators across Sierra Leone.</p>
+                <p style="color: #fde68a; font-size: 14px;">Feedback stories from local trainees and small business operators across Sierra Leone.</p>
             </div>
             
             <div class="blog-grid" id="blog-grid-container">
@@ -710,13 +729,13 @@
             </div>
         </section>
 
-        <!-- PAGE 4: TRAINING & QUESTIONNAIRE PAGE -->
+        <!-- PAGE 4: TRAINING & QUESTIONNAIRE PAGE (Midnight Purple & Cyber Cyan) -->
         <section id="page-training" class="hidden">
             <!-- STEP 1: REGISTRATION FORM -->
             <div id="form-step">
                 <div class="form-card">
-                    <h2 style="color: #ffffff; margin-bottom: 8px; font-size: 24px;">Trainee Registration</h2>
-                    <p style="color: #94a3b8; font-size: 14px; margin-bottom: 20px;">Register your details below to begin your 10-question cyber threat exercise.</p>
+                    <h2 style="color: #ffffff; margin-bottom: 6px; font-size: 22px;">Trainee Registration</h2>
+                    <p style="color: #c084fc; font-size: 13.5px; margin-bottom: 18px;">Register your details below to begin your 10-question cyber threat exercise (randomly selected from 50 scenarios).</p>
                     
                     <form id="user-form">
                         <div class="form-group">
@@ -738,7 +757,7 @@
                                 <option value="IT & Operations">IT & Operations</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 10px;">Launch 10-Question Training Session &rarr;</button>
+                        <button type="submit" class="btn btn-training" style="width: 100%; margin-top: 8px;">Launch 10-Question Training Session &rarr;</button>
                     </form>
                 </div>
             </div>
@@ -749,30 +768,30 @@
                     <div class="progress-fill" id="progress-fill"></div>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <span id="step-counter" style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">Question 1 of 10</span>
-                    <span style="color: var(--accent-cyan); font-size: 12px; font-weight: 600;">Randomized Question & Option Pool Active</span>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <span id="step-counter" style="color: #06b6d4; font-weight: bold; font-size: 14px;">Question 1 of 10</span>
+                    <span style="color: #c084fc; font-size: 12px; font-weight: 600;">50-Question Active Pool</span>
                 </div>
 
-                <h3 id="scenario-title" style="color: #ffffff; font-size: 20px; margin-bottom: 15px;">Scenario Title</h3>
+                <h3 id="scenario-title" style="color: #ffffff; font-size: 18px; margin-bottom: 12px;">Scenario Title</h3>
 
                 <div class="scenario-terminal" id="scenario-terminal"></div>
 
                 <div id="options-container"></div>
 
                 <div id="feedback-box" class="feedback-box hidden">
-                    <strong id="feedback-status" style="display: block; font-size: 16px; margin-bottom: 4px;"></strong>
+                    <strong id="feedback-status" style="display: block; font-size: 15px; margin-bottom: 4px;"></strong>
                     <span id="feedback-text"></span>
                 </div>
 
-                <button id="next-btn" class="btn btn-gold hidden" style="width: 100%; margin-top: 10px;">Continue to Next Question &rarr;</button>
+                <button id="next-btn" class="btn btn-training hidden" style="width: 100%; margin-top: 8px;">Continue to Next Question &rarr;</button>
             </div>
 
             <!-- STEP 3: FINAL PERFORMANCE & CERTIFICATE UNLOCK -->
             <div id="results-step" class="hidden">
                 <div class="results-summary">
-                    <h2 style="color: #ffffff;">Training Evaluation Summary</h2>
-                    <p id="trainee-details" style="color: var(--text-muted); margin-top: 5px;"></p>
+                    <h2 style="color: #ffffff; font-size: 22px;">Training Evaluation Summary</h2>
+                    <p id="trainee-details" style="color: #c084fc; font-size: 13.5px; margin-top: 4px;"></p>
 
                     <div class="score-big" id="score-percentage">0%</div>
                     <div id="badge-container"></div>
@@ -780,7 +799,7 @@
                     <!-- MANDATORY FEEDBACK GATE -->
                     <div id="feedback-gate-section" class="feedback-gate-box">
                         <h4>Share Your Experience to Unlock Your Certificate</h4>
-                        <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 15px;">
+                        <p style="font-size: 12.5px; color: #e9d5ff; margin-bottom: 12px;">
                             How does it feel to complete this cybersecurity awareness training by Sierra Shield? Please provide your feedback below. Your response will be saved directly to our central records and featured in our Feedback page.
                         </p>
                         <form id="feedback-gate-form">
@@ -788,21 +807,21 @@
                                 <label for="trainingExperience">Your Training Feedback & Experience</label>
                                 <textarea id="trainingExperience" placeholder="e.g., Training with Sierra Shield made me realize how vulnerable my business was to mobile money scams. The scenarios were clear, awesome, and practical!" required></textarea>
                             </div>
-                            <button type="submit" id="submit-feedback-btn" class="btn btn-gold" style="width: 100%;">Submit Feedback & Unlock Certificate &rarr;</button>
+                            <button type="submit" id="submit-feedback-btn" class="btn btn-training" style="width: 100%;">Submit Feedback & Unlock Certificate &rarr;</button>
                         </form>
                     </div>
 
                     <!-- UNLOCKED CERTIFICATE CONTROLS -->
-                    <div id="certificate-unlocked-controls" class="hidden" style="margin-top: 25px;">
-                        <p style="color: #10b981; font-weight: bold; margin-bottom: 15px;">✓ Feedback Submitted & Automatically Saved to SierraShield Database!</p>
-                        <button id="cert-btn" class="btn btn-gold" onclick="downloadCertificate()">Download Official Certificate (PNG)</button>
+                    <div id="certificate-unlocked-controls" class="hidden" style="margin-top: 20px;">
+                        <p style="color: #10b981; font-weight: bold; margin-bottom: 12px; font-size: 14px;">✓ Feedback Submitted & Saved Successfully!</p>
+                        <button id="cert-btn" class="btn btn-training" onclick="downloadCertificate()">Download Official Certificate (PNG)</button>
                     </div>
                 </div>
 
-                <h3 style="color: #ffffff; margin-bottom: 15px;">Detailed Breakdown of Your 10 Questions</h3>
+                <h3 style="color: #ffffff; margin-bottom: 12px; font-size: 18px;">Detailed Breakdown of Your 10 Questions</h3>
                 <div id="review-list"></div>
 
-                <button onclick="retakeTraining()" class="btn btn-gold" style="width: 100%; margin-top: 20px;">Retake Training (Load 10 Different Questions)</button>
+                <button onclick="retakeTraining()" class="btn btn-training" style="width: 100%; margin-top: 15px;">Retake Training (Load 10 Different Questions)</button>
             </div>
         </section>
     </main>
@@ -811,12 +830,18 @@
         &copy; 2026 SierraShield Cyber Security Awareness Hub — Lead Director: Mohamed Saidu Bah (IMATT College)
     </footer>
 
-    <!-- Hidden Elements for Certificate Canvas & Dynamic QR Generation -->
+    <!-- Hidden Elements for Canvas Certificate Render & Dynamic QR -->
     <canvas id="certCanvas" width="1050" height="720" style="display:none;"></canvas>
     <div id="qrcode-hidden" style="display:none;"></div>
 
 <script>
-    // PAGE ROUTING & NAVIGATION
+    // MOBILE NAVIGATION TOGGLE
+    function toggleMobileMenu() {
+        const navMenu = document.getElementById('nav-menu');
+        navMenu.classList.toggle('mobile-open');
+    }
+
+    // PAGE ROUTING & NAVIGATION WITH DYNAMIC BODY THEME SWITCHING
     function showPage(pageId) {
         document.getElementById('page-home').classList.add('hidden');
         document.getElementById('page-about').classList.add('hidden');
@@ -827,6 +852,12 @@
         document.getElementById('nav-about').classList.remove('active');
         document.getElementById('nav-blog').classList.remove('active');
         document.getElementById('nav-training').classList.remove('active');
+
+        // Close mobile menu if open
+        document.getElementById('nav-menu').classList.remove('mobile-open');
+
+        // Apply theme to body
+        document.body.className = `theme-${pageId}`;
 
         document.getElementById(`page-${pageId}`).classList.remove('hidden');
         document.getElementById(`nav-${pageId}`).classList.add('active');
@@ -854,7 +885,7 @@
                     <h4>${item.title}</h4>
                     <p>"${item.text}"</p>
                 </div>
-                <div style="margin-top: 15px; font-size: 12px; color: var(--primary-gold); font-weight: bold;">
+                <div style="margin-top: 12px; font-size: 11.5px; color: #f59e0b; font-weight: bold;">
                     — Feedback by ${item.author}
                 </div>
             `;
@@ -863,248 +894,58 @@
     }
     renderBlogGrid();
 
-    // 20 QUESTION POOL (EACH WITH 4 OPTIONS)
+    // COMPLETE 50 QUESTION POOL
     const masterQuestionPool = [
-        { 
-            id: 1, 
-            title: "1. Mobile Money Transfer Scam", 
-            details: "An SMS arrives stating: 'Cash In of Le 2,500 received'. A caller immediately claims they sent money by mistake and asks you to refund it urgently.", 
-            options: [
-                { text: "Send the money back immediately to be helpful.", correct: false }, 
-                { text: "Check your actual balance using your official USSD code first.", correct: true }, 
-                { text: "Forward the SMS alert to your family members.", correct: false },
-                { text: "Call your telecom service provider to scold the sender.", correct: false }
-            ], 
-            lesson: "Scammers send fake SMS alerts. Always check your actual wallet balance via official USSD before transferring money." 
-        },
-        { 
-            id: 2, 
-            title: "2. Supplier Bank Account Change Request", 
-            details: "Your paper supplier sends an email: 'Our bank account is under audit. Please transfer payment for Invoice #402 to this new bank account.'", 
-            options: [
-                { text: "Transfer payment to the new bank account provided.", correct: false }, 
-                { text: "Call the supplier using an official phone number you already know to verify.", correct: true }, 
-                { text: "Reply to the email asking if the new account is real.", correct: false },
-                { text: "Ignore the email and delete the invoice entirely.", correct: false }
-            ], 
-            lesson: "Business Email Compromise attacks alter payment details. Always verify account changes via phone calls." 
-        },
-        { 
-            id: 3, 
-            title: "3. Double File Extension Email Attachment", 
-            details: "An email attachment arriving from a customer inquiry is named: 'Urgent_Order_Details.pdf.exe'.", 
-            options: [
-                { text: "Double-click to open and view the order details.", correct: false }, 
-                { text: "Do not open it. The '.exe' extension indicates executable software or malware.", correct: true }, 
-                { text: "Rename the file to '.pdf' and then double-click to open.", correct: false },
-                { text: "Forward the file to all staff in the sales department.", correct: false }
-            ], 
-            lesson: "Files ending in double extensions like '.pdf.exe' mask malicious software designed to compromise your device." 
-        },
-        { 
-            id: 4, 
-            title: "4. Unattended USB Drive in Office", 
-            details: "You find a brand-new USB flash drive in your store lobby labeled '2026 Staff Salaries & Bonuses'.", 
-            options: [
-                { text: "Plug it into your cashier computer to see who lost it.", correct: false }, 
-                { text: "Hand it over to management/IT without plugging it in.", correct: true }, 
-                { text: "Check it on a personal home laptop instead.", correct: false },
-                { text: "Format the drive immediately using the office PC.", correct: false }
-            ], 
-            lesson: "Unknown USB drives can automatically execute malicious code as soon as they are plugged in." 
-        },
-        { 
-            id: 5, 
-            title: "5. Urgent Password Verification Call", 
-            details: "A caller claiming to be your ISP says your connection will be cut off in 10 minutes unless you verify your administrative router password.", 
-            options: [
-                { text: "Provide the router password immediately to avoid downtime.", correct: false }, 
-                { text: "Refuse to share passwords, hang up, and call official support directly.", correct: true }, 
-                { text: "Give a fake password just to test if they are real.", correct: false },
-                { text: "Ask them to hold while you email the password to them.", correct: false }
-            ], 
-            lesson: "Service providers will never call demanding administrative passwords or account credentials." 
-        },
-        { 
-            id: 6, 
-            title: "6. Urgency Phishing Link", 
-            details: "An email reads: 'URGENT: Your business tax account is suspended. Login within 30 mins at http://sl-tax-portal-update.com'.", 
-            options: [
-                { text: "Click the link and quickly log in to resolve the issue.", correct: false }, 
-                { text: "Ignore the link. Navigate directly to official government portals using saved bookmarks.", correct: true }, 
-                { text: "Forward the email to all store managers to warn them.", correct: false },
-                { text: "Reply with your username and password to request help.", correct: false }
-            ], 
-            lesson: "Urgent threats combined with unfamiliar links are typical indicators of phishing." 
-        },
-        { 
-            id: 7, 
-            title: "7. Public Wi-Fi for Business Operations", 
-            details: "You connect your business tablet to 'Free_Public_WiFi' at a local cafe to process online company banking payments.", 
-            options: [
-                { text: "Proceed with banking transactions as long as the page loads fast.", correct: false }, 
-                { text: "Avoid sensitive banking on open public Wi-Fi unless using a trusted VPN or mobile data.", correct: true }, 
-                { text: "Turn screen brightness down so others cannot see your login.", correct: false },
-                { text: "Clear your browser cache right before logging in.", correct: false }
-            ], 
-            lesson: "Unsecured public Wi-Fi allows network attackers to capture sensitive passwords and sessions." 
-        },
-        { 
-            id: 8, 
-            title: "8. WhatsApp Verification Code Scam", 
-            details: "A text message arrives with a 6-digit WhatsApp verification code. A business contact then messages saying they typed your number by mistake.", 
-            options: [
-                { text: "Send them the 6-digit code to help them out.", correct: false }, 
-                { text: "Never share verification codes. Doing so allows attackers to hijack your account.", correct: true }, 
-                { text: "Post the code in your staff group chat.", correct: false },
-                { text: "Reply asking for their identity card before sending the code.", correct: false }
-            ], 
-            lesson: "Verification codes are private access credentials. Never share them with anyone." 
-        },
-        { 
-            id: 9, 
-            title: "9. Customer Card Payment Fraud", 
-            details: "A customer asks to pay for goods using a photo of a credit card saved on their mobile phone gallery.", 
-            options: [
-                { text: "Type the card details manually into your payment portal.", correct: false }, 
-                { text: "Refuse payment. Require physical card tap/chip or verified mobile transfers.", correct: true }, 
-                { text: "Save the photo of the card to your store phone.", correct: false },
-                { text: "Charge double the price to cover potential fraud risks.", correct: false }
-            ], 
-            lesson: "Processing card photos opens businesses to chargeback fraud and stolen card liability." 
-        },
-        { 
-            id: 10, 
-            title: "10. Suspicious QR Code Sticker at Checkout", 
-            details: "You notice a printed QR code sticker stuck over your store's official mobile money payment display sign.", 
-            options: [
-                { text: "Let customers scan it anyway if it looks neat.", correct: false }, 
-                { text: "Remove sticker immediately and verify payment destination accounts.", correct: true }, 
-                { text: "Scan it with your personal phone to see where it leads.", correct: false },
-                { text: "Cover it with clear tape to secure it.", correct: false }
-            ], 
-            lesson: "Attackers overlay fake QR codes to redirect merchant payment funds to private accounts." 
-        },
-        { 
-            id: 11, 
-            title: "11. Ransomware Threat Vector", 
-            details: "A store computer screen displays: 'All business records are encrypted. Pay $500 in crypto within 24 hours to unlock.'", 
-            options: [
-                { text: "Pay the ransom immediately to get files back.", correct: false }, 
-                { text: "Disconnect computer from network and restore data from offline backups.", correct: true }, 
-                { text: "Reboot the computer continuously hoping it fixes itself.", correct: false },
-                { text: "Delete all files manually and shut off the power.", correct: false }
-            ], 
-            lesson: "Paying ransoms does not guarantee file recovery. Offline backups are the safest defense." 
-        },
-        { 
-            id: 12, 
-            title: "12. Fake CEO Gift Card Request", 
-            details: "An email appearing to come from your business owner reads: 'I am in an urgent meeting. Buy 5 digital gift cards and text me the code photos immediately.'", 
-            options: [
-                { text: "Buy the gift cards right away using company cash.", correct: false }, 
-                { text: "Recognize CEO Impersonation Scam. Confirm directly with the owner via phone.", correct: true }, 
-                { text: "Email the gift card codes to the owner's personal email.", correct: false },
-                { text: "Ask the vendor to mail physical cards to the owner's address.", correct: false }
-            ], 
-            lesson: "Executive impersonation scams often demand urgent gift card code purchases." 
-        },
-        { 
-            id: 13, 
-            title: "13. Sticky Notes with Credentials", 
-            details: "A colleague wrote their software administrative password on a sticky note attached directly to their monitor screen.", 
-            options: [
-                { text: "Leave it there so everyone can access software quickly.", correct: false }, 
-                { text: "Advise colleague to remove note and use a secure password manager.", correct: true }, 
-                { text: "Photograph the note with your smartphone for safekeeping.", correct: false },
-                { text: "Move the sticky note to the back of the computer tower.", correct: false }
-            ], 
-            lesson: "Exposing written passwords visually enables physical unauthorized account access." 
-        },
-        { 
-            id: 14, 
-            title: "14. Social Media Copyright Violation Scam", 
-            details: "A message reads: 'Your business page will be deleted in 24 hours due to copyright issues. Click here to verify account ownership.'", 
-            options: [
-                { text: "Click link and enter your account password to protect the page.", correct: false }, 
-                { text: "Do not click external links. Check official notifications inside Facebook Business Suite.", correct: true }, 
-                { text: "Delete your business page immediately to avoid penalties.", correct: false },
-                { text: "Share the link on your page feed asking followers for advice.", correct: false }
-            ], 
-            lesson: "Scammers use threat warnings to capture business page admin credentials." 
-        },
-        { 
-            id: 15, 
-            title: "15. Software Patch Delays", 
-            details: "A operating system prompt pops up stating: 'Critical Security Update Available'. Staff repeatedly click 'Remind Me Next Month'.", 
-            options: [
-                { text: "Keep delaying updates so work is never interrupted.", correct: false }, 
-                { text: "Install security patches promptly to close known system vulnerabilities.", correct: true }, 
-                { text: "Turn off all system notifications permanently.", correct: false },
-                { text: "Uninstall the operating system.", correct: false }
-            ], 
-            lesson: "Delaying updates leaves systems exposed to known security vulnerabilities." 
-        },
-        { 
-            id: 16, 
-            title: "16. Rogue Pop-Up Virus Alert", 
-            details: "A web browser pop-up window claims: 'CRITICAL VIRUS DETECTED! Call +1-800-XXX-XXXX immediately for toll-free technical support.'", 
-            options: [
-                { text: "Call the phone number displayed on the screen.", correct: false }, 
-                { text: "Close browser tab/process. This is scareware designed to gain remote access.", correct: true }, 
-                { text: "Download the recommended antivirus software from the pop-up.", correct: false },
-                { text: "Leave the computer running overnight to fix itself.", correct: false }
-            ], 
-            lesson: "Browser virus warnings are scareware designed to trick users into downloading malware." 
-        },
-        { 
-            id: 17, 
-            title: "17. Disposing of Old Customer Receipts", 
-            details: "Your accounting desk is clearing out old paper payment receipts containing full customer names, addresses, and phone numbers.", 
-            options: [
-                { text: "Throw them directly into the outdoor trash bin.", correct: false }, 
-                { text: "Shred or burn paper documents containing personal customer data.", correct: true }, 
-                { text: "Use the blank back side as scrap paper for casual store notes.", correct: false },
-                { text: "Dump them in a public recycling bin down the street.", correct: false }
-            ], 
-            lesson: "Physical destruction of customer data prevents identity theft from discarded trash." 
-        },
-        { 
-            id: 18, 
-            title: "18. Fake Business Grant Email", 
-            details: "An email claims your company won a $10,000 SME Growth Grant. You must pay a $50 processing fee via mobile money to release funds.", 
-            options: [
-                { text: "Pay the $50 fee immediately to collect the $10,000.", correct: false }, 
-                { text: "Recognize advance-fee scam. Legitimate grants never demand upfront money.", correct: true }, 
-                { text: "Send your company bank account details to verify eligibility.", correct: false },
-                { text: "Request to pay $100 fee to receive funds faster.", correct: false }
-            ], 
-            lesson: "Any grant or prize requiring upfront fees is fraudulent." 
-        },
-        { 
-            id: 19, 
-            title: "19. Remote Work Laptop Encryption", 
-            details: "A sales representative carries a business laptop containing full customer databases on frequent field trips across towns.", 
-            options: [
-                { text: "Leave the laptop unlocked in the vehicle for fast access.", correct: false }, 
-                { text: "Enable full-disk encryption and require strong multi-factor authentication.", correct: true }, 
-                { text: "Store login passwords in plain text files on the desktop.", correct: false },
-                { text: "Disable passwords to prevent getting locked out during trips.", correct: false }
-            ], 
-            lesson: "Full-disk encryption protects stored business files if mobile devices are stolen." 
-        },
-        { 
-            id: 20, 
-            title: "20. Cloud Storage Login Request", 
-            details: "An email states: 'A client shared an invoice via Google Drive. Click here to login and view document.'", 
-            options: [
-                { text: "Type your email password immediately without checking the browser address bar.", correct: false }, 
-                { text: "Inspect URL in address bar to confirm official domain before entering credentials.", correct: true }, 
-                { text: "Forward your password to the sender for confirmation.", correct: false },
-                { text: "Disable web browser security warnings.", correct: false }
-            ], 
-            lesson: "Fake cloud portal pages harvest passwords. Always check the browser address bar." 
-        }
+        { id: 1, title: "1. Mobile Money Transfer Scam", details: "An SMS arrives stating: 'Cash In of Le 2,500 received'. A caller immediately claims they sent money by mistake and asks you to refund it urgently.", options: [{ text: "Send the money back immediately to be helpful.", correct: false }, { text: "Check your actual balance using your official USSD code first.", correct: true }, { text: "Forward the SMS alert to your family members.", correct: false }, { text: "Call your telecom service provider to scold the sender.", correct: false }], lesson: "Scammers send fake SMS alerts. Always check your actual wallet balance via official USSD before transferring money." },
+        { id: 2, title: "2. Supplier Bank Account Change Request", details: "Your paper supplier sends an email: 'Our bank account is under audit. Please transfer payment for Invoice #402 to this new bank account.'", options: [{ text: "Transfer payment to the new bank account provided.", correct: false }, { text: "Call the supplier using an official phone number you already know to verify.", correct: true }, { text: "Reply to the email asking if the new account is real.", correct: false }, { text: "Ignore the email and delete the invoice entirely.", correct: false }], lesson: "Business Email Compromise attacks alter payment details. Always verify account changes via phone calls." },
+        { id: 3, title: "3. Double File Extension Email Attachment", details: "An email attachment arriving from a customer inquiry is named: 'Urgent_Order_Details.pdf.exe'.", options: [{ text: "Double-click to open and view the order details.", correct: false }, { text: "Do not open it. The '.exe' extension indicates executable software or malware.", correct: true }, { text: "Rename the file to '.pdf' and then double-click to open.", correct: false }, { text: "Forward the file to all staff in the sales department.", correct: false }], lesson: "Files ending in double extensions like '.pdf.exe' mask malicious software designed to compromise your device." },
+        { id: 4, title: "4. Unattended USB Drive in Office", details: "You find a brand-new USB flash drive in your store lobby labeled '2026 Staff Salaries & Bonuses'.", options: [{ text: "Plug it into your cashier computer to see who lost it.", correct: false }, { text: "Hand it over to management/IT without plugging it in.", correct: true }, { text: "Check it on a personal home laptop instead.", correct: false }, { text: "Format the drive immediately using the office PC.", correct: false }], lesson: "Unknown USB drives can automatically execute malicious code as soon as they are plugged in." },
+        { id: 5, title: "5. Urgent Password Verification Call", details: "A caller claiming to be your ISP says your connection will be cut off in 10 minutes unless you verify your administrative router password.", options: [{ text: "Provide the router password immediately to avoid downtime.", correct: false }, { text: "Refuse to share passwords, hang up, and call official support directly.", correct: true }, { text: "Give a fake password just to test if they are real.", correct: false }, { text: "Ask them to hold while you email the password to them.", correct: false }], lesson: "Service providers will never call demanding administrative passwords or account credentials." },
+        { id: 6, title: "6. Urgency Phishing Link", details: "An email reads: 'URGENT: Your business tax account is suspended. Login within 30 mins at http://sl-tax-portal-update.com'.", options: [{ text: "Click the link and quickly log in to resolve the issue.", correct: false }, { text: "Ignore the link. Navigate directly to official government portals using saved bookmarks.", correct: true }, { text: "Forward the email to all store managers to warn them.", correct: false }, { text: "Reply with your username and password to request help.", correct: false }], lesson: "Urgent threats combined with unfamiliar links are typical indicators of phishing." },
+        { id: 7, title: "7. Public Wi-Fi for Business Operations", details: "You connect your business tablet to 'Free_Public_WiFi' at a local cafe to process online company banking payments.", options: [{ text: "Proceed with banking transactions as long as the page loads fast.", correct: false }, { text: "Avoid sensitive banking on open public Wi-Fi unless using a trusted VPN or mobile data.", correct: true }, { text: "Turn screen brightness down so others cannot see your login.", correct: false }, { text: "Clear your browser cache right before logging in.", correct: false }], lesson: "Unsecured public Wi-Fi allows network attackers to capture sensitive passwords and sessions." },
+        { id: 8, title: "8. WhatsApp Verification Code Scam", details: "A text message arrives with a 6-digit WhatsApp verification code. A business contact then messages saying they typed your number by mistake.", options: [{ text: "Send them the 6-digit code to help them out.", correct: false }, { text: "Never share verification codes. Doing so allows attackers to hijack your account.", correct: true }, { text: "Post the code in your staff group chat.", correct: false }, { text: "Reply asking for their identity card before sending the code.", correct: false }], lesson: "Verification codes are private access credentials. Never share them with anyone." },
+        { id: 9, title: "9. Customer Card Payment Fraud", details: "A customer asks to pay for goods using a photo of a credit card saved on their mobile phone gallery.", options: [{ text: "Type the card details manually into your payment portal.", correct: false }, { text: "Refuse payment. Require physical card tap/chip or verified mobile transfers.", correct: true }, { text: "Save the photo of the card to your store phone.", correct: false }, { text: "Charge double the price to cover potential fraud risks.", correct: false }], lesson: "Processing card photos opens businesses to chargeback fraud and stolen card liability." },
+        { id: 10, title: "10. Suspicious QR Code Sticker at Checkout", details: "You notice a printed QR code sticker stuck over your store's official mobile money payment display sign.", options: [{ text: "Let customers scan it anyway if it looks neat.", correct: false }, { text: "Remove sticker immediately and verify payment destination accounts.", correct: true }, { text: "Scan it with your personal phone to see where it leads.", correct: false }, { text: "Cover it with clear tape to secure it.", correct: false }], lesson: "Attackers overlay fake QR codes to redirect merchant payment funds to private accounts." },
+        { id: 11, title: "11. Ransomware Threat Vector", details: "A store computer screen displays: 'All business records are encrypted. Pay $500 in crypto within 24 hours to unlock.'", options: [{ text: "Pay the ransom immediately to get files back.", correct: false }, { text: "Disconnect computer from network and restore data from offline backups.", correct: true }, { text: "Reboot the computer continuously hoping it fixes itself.", correct: false }, { text: "Delete all files manually and shut off the power.", correct: false }], lesson: "Paying ransoms does not guarantee file recovery. Offline backups are the safest defense." },
+        { id: 12, title: "12. Fake CEO Gift Card Request", details: "An email appearing to come from your business owner reads: 'I am in an urgent meeting. Buy 5 digital gift cards and text me the code photos immediately.'", options: [{ text: "Buy the gift cards right away using company cash.", correct: false }, { text: "Recognize CEO Impersonation Scam. Confirm directly with the owner via phone.", correct: true }, { text: "Email the gift card codes to the owner's personal email.", correct: false }, { text: "Ask the vendor to mail physical cards to the owner's address.", correct: false }], lesson: "Executive impersonation scams often demand urgent gift card code purchases." },
+        { id: 13, title: "13. Sticky Notes with Credentials", details: "A colleague wrote their software administrative password on a sticky note attached directly to their monitor screen.", options: [{ text: "Leave it there so everyone can access software quickly.", correct: false }, { text: "Advise colleague to remove note and use a secure password manager.", correct: true }, { text: "Photograph the note with your smartphone for safekeeping.", correct: false }, { text: "Move the sticky note to the back of the computer tower.", correct: false }], lesson: "Exposing written passwords visually enables physical unauthorized account access." },
+        { id: 14, title: "14. Social Media Copyright Violation Scam", details: "A message reads: 'Your business page will be deleted in 24 hours due to copyright issues. Click here to verify account ownership.'", options: [{ text: "Click link and enter your account password to protect the page.", correct: false }, { text: "Do not click external links. Check official notifications inside Facebook Business Suite.", correct: true }, { text: "Delete your business page immediately to avoid penalties.", correct: false }, { text: "Share the link on your page feed asking followers for advice.", correct: false }], lesson: "Scammers use threat warnings to capture business page admin credentials." },
+        { id: 15, title: "15. Software Patch Delays", details: "A operating system prompt pops up stating: 'Critical Security Update Available'. Staff repeatedly click 'Remind Me Next Month'.", options: [{ text: "Keep delaying updates so work is never interrupted.", correct: false }, { text: "Install security patches promptly to close known system vulnerabilities.", correct: true }, { text: "Turn off all system notifications permanently.", correct: false }, { text: "Uninstall the operating system.", correct: false }], lesson: "Delaying updates leaves systems exposed to known security vulnerabilities." },
+        { id: 16, title: "16. Rogue Pop-Up Virus Alert", details: "A web browser pop-up window claims: 'CRITICAL VIRUS DETECTED! Call +1-800-XXX-XXXX immediately for toll-free technical support.'", options: [{ text: "Call the phone number displayed on the screen.", correct: false }, { text: "Close browser tab/process. This is scareware designed to gain remote access.", correct: true }, { text: "Download the recommended antivirus software from the pop-up.", correct: false }, { text: "Leave the computer running overnight to fix itself.", correct: false }], lesson: "Browser virus warnings are scareware designed to trick users into downloading malware." },
+        { id: 17, title: "17. Disposing of Old Customer Receipts", details: "Your accounting desk is clearing out old paper payment receipts containing full customer names, addresses, and phone numbers.", options: [{ text: "Throw them directly into the outdoor trash bin.", correct: false }, { text: "Shred or burn paper documents containing personal customer data.", correct: true }, { text: "Use the blank back side as scrap paper for casual store notes.", correct: false }, { text: "Dump them in a public recycling bin down the street.", correct: false }], lesson: "Physical destruction of customer data prevents identity theft from discarded trash." },
+        { id: 18, title: "18. Fake Business Grant Email", details: "An email claims your company won a $10,000 SME Growth Grant. You must pay a $50 processing fee via mobile money to release funds.", options: [{ text: "Pay the $50 fee immediately to collect the $10,000.", correct: false }, { text: "Recognize advance-fee scam. Legitimate grants never demand upfront money.", correct: true }, { text: "Send your company bank account details to verify eligibility.", correct: false }, { text: "Request to pay $100 fee to receive funds faster.", correct: false }], lesson: "Any grant or prize requiring upfront fees is fraudulent." },
+        { id: 19, title: "19. Remote Work Laptop Encryption", details: "A sales representative carries a business laptop containing full customer databases on frequent field trips across towns.", options: [{ text: "Leave the laptop unlocked in the vehicle for fast access.", correct: false }, { text: "Enable full-disk encryption and require strong multi-factor authentication.", correct: true }, { text: "Store login passwords in plain text files on the desktop.", correct: false }, { text: "Disable passwords to prevent getting locked out during trips.", correct: false }], lesson: "Full-disk encryption protects stored business files if mobile devices are stolen." },
+        { id: 20, title: "20. Cloud Storage Login Request", details: "An email states: 'A client shared an invoice via Google Drive. Click here to login and view document.'", options: [{ text: "Type your email password immediately without checking the browser address bar.", correct: false }, { text: "Inspect URL in address bar to confirm official domain before entering credentials.", correct: true }, { text: "Forward your password to the sender for confirmation.", correct: false }, { text: "Disable web browser security warnings.", correct: false }], lesson: "Fake cloud portal pages harvest passwords. Always check the browser address bar." },
+        { id: 21, title: "21. SIM Swap Fraud Protection", details: "Your business mobile line suddenly loses all network service, while a text notification mentions a SIM replacement request.", options: [{ text: "Wait a few days to see if network coverage returns automatically.", correct: false }, { text: "Immediately contact your telecom operator to secure your line against unauthorized SIM swap.", correct: true }, { text: "Turn off your phone and leave it in a drawer.", correct: false }, { text: "Post about signal loss on your social media timeline.", correct: false }], lesson: "Sudden loss of cellular service combined with SIM swap alerts can indicate hijacked line access." },
+        { id: 22, title: "22. Multi-Factor Authentication (MFA) Prompt Bombing", details: "You receive 15 consecutive MFA push alerts on your phone asking to approve a login you did not initiate.", options: [{ text: "Tap 'Approve' to stop the annoying notifications from popping up.", correct: false }, { text: "Deny the request and immediately change your account password.", correct: true }, { text: "Ignore it and turn off your phone notifications permanently.", correct: false }, { text: "Forward the login prompt to a colleague.", correct: false }], lesson: "Repeated unauthorized MFA prompts mean an attacker knows your password and is trying to fatigue you." },
+        { id: 23, title: "23. Social Engineering Tailgating", details: "An unfamiliar person carrying heavy boxes follows closely behind you through a restricted office door.", options: [{ text: "Hold the door open for them without checking their staff badge.", correct: false }, { text: "Politely ask them to present their staff ID or sign in at the reception desk first.", correct: true }, { text: "Give them your access badge so they can move freely.", correct: false }, { text: "Ignore them and leave restricted doors propped open.", correct: false }], lesson: "Tailgating is a physical intrusion technique. Always verify identity before granting access." },
+        { id: 24, title: "24. Rogue USB Phone Charging Station", details: "At a public conference, you see a free charging station with pre-attached USB cables and plug your business phone in.", options: [{ text: "Plug in directly; standard charging cables cannot transfer data.", correct: false }, { text: "Use your own wall adapter or a data-blocking USB shield to prevent 'Juice Jacking'.", correct: true }, { text: "Enable USB file transfer mode when prompted on phone.", correct: false }, { text: "Leave phone unattended while charging.", correct: false }], lesson: "Public USB ports can be modified to steal data or install malware ('Juice Jacking')." },
+        { id: 25, title: "25. Password Reuse Across Accounts", details: "An employee uses the exact same password for their personal social media and official company financial portal.", options: [{ text: "This is fine as long as the password contains numbers.", correct: false }, { text: "Require unique passwords for every account to prevent credential stuffing attacks.", correct: true }, { text: "Share the password with the department head.", correct: false }, { text: "Write the password on the office whiteboard.", correct: false }], lesson: "If one service suffers a breach, reused passwords expose all connected business accounts." },
+        { id: 26, title: "26. Counterfeit Software Downloads", details: "To save costs, an employee downloads a cracked version of accounting software from an unverified torrent website.", options: [{ text: "Install it immediately to save business funds.", correct: false }, { text: "Only install licensed software from official vendor websites to avoid embedded trojans.", correct: true }, { text: "Disable antivirus software before running installer.", correct: false }, { text: "Share cracked installer file with all office staff.", correct: false }], lesson: "Pirated software frequently contains embedded backdoors and malware payload dropped into networks." },
+        { id: 27, title: "27. Fake Security Auditor On-Site", details: "A person wearing a reflective vest arrives claiming to be an external network inspector sent to inspect your store server.", options: [{ text: "Direct them straight to the server room unattended.", correct: false }, { text: "Request official credentials and verify appointment with senior management before access.", correct: true }, { text: "Hand over administrative server passwords directly.", correct: false }, { text: "Leave them alone in the server office with unlocked computers.", correct: false }], lesson: "Impersonating field technicians is a direct method used to gain physical access to server hardware." },
+        { id: 28, title: "28. Suspicious Domain Typo (Typosquatting)", details: "You receive an invoice from 'accounts@paypa1.com' instead of 'accounts@paypal.com'.", options: [{ text: "Pay immediately since logo looks identical.", correct: false }, { text: "Recognize typosquatting (using number '1' instead of letter 'l') and mark as phishing.", correct: true }, { text: "Forward email to all customers.", correct: false }, { text: "Save domain as trusted contact.", correct: false }], lesson: "Attackers register domain names with minor typos to deceive users into paying fraudulent accounts." },
+        { id: 29, title: "29. Disposing of Old Office Hard Drives", details: "Your business is upgrading old desktop computers and wants to throw out old hard drives.", options: [{ text: "Toss them into standard trash bins once deleted.", correct: false }, { text: "Perform physical destruction or cryptographically wipe drives prior to disposal.", correct: true }, { text: "Leave them on sidewalk for scrap collectors.", correct: false }, { text: "Store them unsecured in open lobby.", correct: false }], lesson: "Deleted files can easily be recovered from discarded storage devices unless properly destroyed." },
+        { id: 30, title: "30. E-commerce Website SSL Certificate Warning", details: "When logging into your online supplier store, browser warns: 'Security Certificate Not Trusted'.", options: [{ text: "Bypass warning and enter credit card information.", correct: false }, { text: "Do not submit sensitive credentials; verify site domain security status.", correct: true }, { text: "Disable browser security shield.", correct: false }, { text: "Email store credentials to site support.", correct: false }], lesson: "SSL certificate warnings indicate unencrypted communication or potential interception attacks." },
+        { id: 31, title: "31. Social Engineering Phone Survey", details: "A phone surveyor offers a free gift if you answer questions about your company's network setup and software brand.", options: [{ text: "Answer all technical questions to get the gift.", correct: false }, { text: "Decline to disclose internal technical infrastructure details over telephone calls.", correct: true }, { text: "Give them server IP addresses.", correct: false }, { text: "Transfer call to junior trainees.", correct: false }], lesson: "Pretexting calls gather operational data to prepare targeted network attacks." },
+        { id: 32, title: "32. Unencrypted Customer Spreadsheet Email", details: "A staff member wants to email a list of 500 customer contact records and national identity numbers to an partner.", options: [{ text: "Send as a standard unencrypted Excel attachment.", correct: false }, { text: "Encrypt file or place password protection on sensitive customer export before sending.", correct: true }, { text: "Post customer list in public chat group.", correct: false }, { text: "Upload file to public file sharing website.", correct: false }], lesson: "Sensitive data files must be encrypted before transmission over public internet channels." },
+        { id: 33, title: "33. Fake IT Department Helpdesk Email", details: "Email stating 'IT Desk Update: Click here to increase your mailbox size limit from 5GB to 50GB'.", options: [{ text: "Click link and type password to expand quota.", correct: false }, { text: "Verify with internal IT team. Mailbox expansions are handled internally without password forms.", correct: true }, { text: "Forward link to business clients.", correct: false }, { text: "Reply with current account login details.", correct: false }], lesson: "Quota expansion emails are classic lures used to capture corporate email logins." },
+        { id: 34, title: "34. Workplace Clean Desk Policy", details: "Leaving customer financial contracts and cheque books visible on desk while taking a 1-hour lunch break.", options: [{ text: "Leave papers on desk since office door is unlocked.", correct: false }, { text: "Lock physical documents inside drawers or filing cabinets when leaving desk unattended.", correct: true }, { text: "Cover papers with a blank newspaper.", correct: false }, { text: "Ask visitors to watch over papers.", correct: false }], lesson: "Physical security policies require locking away sensitive paperwork when leaving work areas." },
+        { id: 35, title: "35. Cloud Data Backup Frequency", details: "Your business updates sales databases daily but only backs up system files once a year.", options: [{ text: "Yearly backup is sufficient for all small businesses.", correct: false }, { text: "Automate daily or weekly incremental backups to ensure business continuity.", correct: true }, { text: "Stop doing backups to save storage space.", correct: false }, { text: "Keep backups on same computer main hard drive only.", correct: false }], lesson: "Infrequent backups increase operational data loss risks in cases of drive failures or ransomware." },
+        { id: 36, title: "36. Mobile Phone Screen Lock Protection", details: "A company mobile phone containing access to corporate banking apps has no PIN code or passcode set.", options: [{ text: "Leave PIN off to unlock screen fast during busy sales hours.", correct: false }, { text: "Enforce biometric or strong PIN authentication on all business mobile devices.", correct: true }, { text: "Use simple '1234' PIN for easy memory.", correct: false }, { text: "Set auto-lock timer to 'Never'.", correct: false }], lesson: "Unsecured mobile devices grant instant unauthorized access to business apps if stolen." },
+        { id: 37, title: "37. Rogue Access Point (Evil Twin) Wi-Fi", details: "In your office building, a new unsecured Wi-Fi network appears called 'OFFICE_GUEST_FREE'.", options: [{ text: "Connect immediately to save office cellular data.", correct: false }, { text: "Confirm network authenticity with IT admin before connecting devices.", correct: true }, { text: "Share new Wi-Fi network credentials on social media.", correct: false }, { text: "Process customer card payments using the unknown network.", correct: false }], lesson: "Attackers set up fake Wi-Fi access points to intercept traffic from unsuspecting users." },
+        { id: 38, title: "38. Suspicious Social Media Friend Request", details: "You receive a friend request from someone using your boss's photo and name, though you are already connected.", options: [{ text: "Accept request and share private company updates.", correct: false }, { text: "Report cloned profile and alert your real supervisor via direct phone call.", correct: true }, { text: "Send company banking details to new profile.", correct: false }, { text: "Ignore real supervisor and only talk to new account.", correct: false }], lesson: "Account cloning is used to impersonate trusted acquaintances and conduct social engineering." },
+        { id: 39, title: "39. Operating System End-Of-Life (EOL)", details: "Store cashier system runs an ancient operating system that no longer receives security updates.", options: [{ text: "Keep using it since software still powers on.", correct: false }, { text: "Upgrade operating system to supported version receiving active security patches.", correct: true }, { text: "Disable all firewall security layers.", correct: false }, { text: "Connect system directly to open public web servers.", correct: false }], lesson: "Unsupported operating systems contain unpatched vulnerabilities easily exploited by attackers." },
+        { id: 40, title: "40. Fake Job Applicant Email", details: "Email from unknown sender: 'Please view my attached CV in Job_Application.iso file format'.", options: [{ text: "Double click .iso file to view candidate credentials.", correct: false }, { text: "Do not open executable container formats (.iso, .img, .vbs) sent from unverified callers.", correct: true }, { text: "Forward .iso file to company owner.", correct: false }, { text: "Extract files to system boot directory.", correct: false }], lesson: "Attackers disguise malicious container files as employment resumes to breach internal networks." },
+        { id: 41, title: "41. Automatic File Synchronization Risk", details: "An employee syncs private customer contracts to a personal public cloud storage folder.", options: [{ text: "This is acceptable practice for remote work efficiency.", correct: false }, { text: "Enforce official enterprise cloud storage policies to prevent data leakage.", correct: true }, { text: "Make folder public to all web searches.", correct: false }, { text: "Delete local copies and rely solely on personal storage.", correct: false }], lesson: "Unapproved cloud storage usage (Shadow IT) creates data leakage and compliance vulnerabilities." },
+        { id: 42, title: "42. Bluetooth Security Management", details: "Leaving office smartphones with discoverable Bluetooth enabled continually while in crowded public places.", options: [{ text: "Leave Bluetooth discoverable permanently.", correct: false }, { text: "Turn off discoverability when not actively pairing to prevent unauthorized connections.", correct: true }, { text: "Accept all incoming unknown Bluetooth pairing prompts.", correct: false }, { text: "Pair phone with unknown surrounding devices.", correct: false }], lesson: "Unsecured Bluetooth connections allow nearby attackers to access device data or track location." },
+        { id: 43, title: "43. Automated Password Saver on Shared Terminals", details: "When logging into merchant banking on a shared store terminal, browser prompts: 'Save Password for this site?'", options: [{ text: "Click 'Save' so every staff member can log in quickly.", correct: false }, { text: "Click 'Never Save' on shared public or multi-user workstations.", correct: true }, { text: "Write saved password details on register tape.", correct: false }, { text: "Export saved browser passwords to public folder.", correct: false }], lesson: "Saving login passwords on shared hardware allows subsequent users unauthorized access." },
+        { id: 44, title: "44. Suspicious Banking SMS Phone Numbers", details: "SMS arrives claiming: 'Your bank account is locked. Call 077-XXX-XXX immediately to unlock.' Number is standard private mobile line.", options: [{ text: "Call mobile number and provide bank card PIN.", correct: false }, { text: "Ignore SMS; official bank notices come through corporate sender IDs, not personal lines.", correct: true }, { text: "Text debit card credentials back to sender.", correct: false }, { text: "Transfer money to number to test connection.", correct: false }], lesson: "Financial institutions do not request credential verification via private mobile phone numbers." },
+        { id: 45, title: "45. Social Engineering via Favor Request", details: "A caller claiming to be a new employee asks: 'I cannot log in, please give me your password so I can submit sales report before deadline.'", options: [{ text: "Share your login credentials to help colleague meet deadline.", correct: false }, { text: "Never disclose login passwords. Direct caller to official IT desk verification.", correct: true }, { text: "Email password to caller's personal address.", correct: false }, { text: "Post login credentials in public chat group.", correct: false }], lesson: "Creating artificial urgency is a core tactic used in password harvesting scams." },
+        { id: 46, title: "46. Disabling Antivirus for Performance", details: "Computer runs slow during morning sales peak, so cashier disables system antivirus scanner permanently.", options: [{ text: "Keep antivirus turned off during business hours.", correct: false }, { text: "Maintain active real-time protection; schedule scans outside busy operational hours.", correct: true }, { text: "Uninstall security software entirely.", correct: false }, { text: "Delete system security logs.", correct: false }], lesson: "Disabling security software leaves business endpoints vulnerable to zero-day malware attacks." },
+        { id: 47, title: "47. Fake Wi-Fi Router Firmware Update Email", details: "Email claims: 'Router Security Vulnerable: Click here to upload custom firmware patch file'.", options: [{ text: "Download file and run patch on office router.", correct: false }, { text: "Ignore email; router updates should only be performed through verified manufacturer portals.", correct: true }, { text: "Forward update patch file to all business partners.", correct: false }, { text: "Disable router encryption settings.", correct: false }], lesson: "Malicious firmware updates compromise router configurations and allow full network interception." },
+        { id: 48, title: "48. Verification of Foreign Wire Transfers", details: "An overseas buyer emails an overpayment receipt for goods and demands immediate money refund via mobile transfer before cheque clears.", options: [{ text: "Send refund money immediately before cheque clears.", correct: false }, { text: "Wait until bank officially confirms funds clearance before issuing any refunds.", correct: true }, { text: "Ship goods without payment verification.", correct: false }, { text: "Destroy original sales order receipt.", correct: false }], lesson: "Overpayment scams rely on fake payment receipts before victim realizes cheque bounced." },
+        { id: 49, title: "49. Multi-User Account Sharing", details: "Four store employees share the single administrative user account 'Admin1' for daily transactions.", options: [{ text: "Keep sharing account to avoid creating separate user profiles.", correct: false }, { text: "Create individual user accounts for each staff member to ensure clear audit logs.", correct: true }, { text: "Remove passwords from Admin1 account entirely.", correct: false }, { text: "Publish Admin1 password on office entrance sign.", correct: false }], lesson: "Individual user accounts ensure accountability and traceable activity tracking in audit logs." },
+        { id: 50, title: "50. Physical Server Room Access Control", details: "The door to the office server rack and network switches is left unlocked and propped open for ventilation.", options: [{ text: "Leave propped open if temperature in room feels hot.", correct: false }, { text: "Secure server cabinet with physical lock and install proper cooling solutions.", correct: true }, { text: "Allow store visitors to store personal bags inside server room.", correct: false }, { text: "Turn off server power switches when leaving at night.", correct: false }], lesson: "Physical access to servers allows malicious actors to bypass software network controls." }
     ];
 
     let currentQuestions = [];
@@ -1114,7 +955,6 @@
     let traineeProfile = {};
     let uniqueCertID = "";
 
-    // REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCdGRPx2EU4gIQMQFVzqA9Xegyk_bMOh-B7rCcl03GUgPTmTpRINS54ZXQblUQRKEN/exec";
 
     function generateUniqueCertificateID() {
@@ -1123,7 +963,6 @@
         return `SSH-2026-${randA}-${randB}`;
     }
 
-    // Helper Function to Shuffle Arrays (Fisher-Yates)
     function shuffleArray(array) {
         let arr = [...array];
         for (let i = arr.length - 1; i > 0; i--) {
@@ -1134,8 +973,7 @@
     }
 
     function selectTenRandomQuestions() {
-        const shuffledPool = shuffleArray(masterQuestionPool);
-        return shuffledPool.slice(0, 10);
+        return shuffleArray(masterQuestionPool).slice(0, 10);
     }
 
     const userForm = document.getElementById('user-form');
@@ -1146,8 +984,8 @@
     userForm.addEventListener('submit', (e) => {
         e.preventDefault();
         traineeProfile = {
-            name: document.getElementById('fullName').value,
-            email: document.getElementById('email').value,
+            name: document.getElementById('fullName').value.trim(),
+            email: document.getElementById('email').value.trim(),
             dept: document.getElementById('department').value,
             date: new Date().toLocaleDateString()
         };
@@ -1165,7 +1003,7 @@
 
     function renderQuestion() {
         const item = currentQuestions[currentQuestionIdx];
-        const progress = (currentQuestionIdx / currentQuestions.length) * 100;
+        const progress = ((currentQuestionIdx) / currentQuestions.length) * 100;
         document.getElementById('progress-fill').style.width = `${progress}%`;
 
         document.getElementById('step-counter').innerText = `Question ${currentQuestionIdx + 1} of ${currentQuestions.length}`;
@@ -1178,9 +1016,7 @@
         const optsContainer = document.getElementById('options-container');
         optsContainer.innerHTML = '';
 
-        // Randomize the 4 options so the correct answer position varies every time
         const randomizedOptions = shuffleArray(item.options);
-        // Save the current randomized order on the question object for selection reference
         item.currentShuffledOptions = randomizedOptions;
 
         randomizedOptions.forEach((opt, idx) => {
@@ -1232,6 +1068,7 @@
         if (currentQuestionIdx < currentQuestions.length) {
             renderQuestion();
         } else {
+            document.getElementById('progress-fill').style.width = '100%';
             displayResults();
         }
     });
@@ -1262,9 +1099,9 @@
             const div = document.createElement('div');
             div.className = `review-item ${ans.isCorrect ? 'pass' : 'fail'}`;
             div.innerHTML = `
-                <h4 style="color:#fff; margin-bottom: 6px;">Q${i + 1}: ${ans.title}</h4>
-                <p style="font-size:14px; color:#cbd5e1; margin-bottom: 6px;"><strong>Selected Answer:</strong> ${ans.chosen}</p>
-                <div style="font-size:13px; color:#94a3b8; border-top:1px dashed #334155; padding-top:6px; margin-top:6px;">
+                <h4 style="color:#fff; margin-bottom: 4px; font-size:15px;">Q${i + 1}: ${ans.title}</h4>
+                <p style="font-size:13.5px; color:#e9d5ff; margin-bottom: 4px;"><strong>Selected Answer:</strong> ${ans.chosen}</p>
+                <div style="font-size:12.5px; color:#c084fc; border-top:1px dashed #581c87; padding-top:4px; margin-top:4px;">
                     <strong>Key Security Lesson:</strong> ${ans.lesson}
                 </div>
             `;
@@ -1272,18 +1109,16 @@
         });
     }
 
-    // AUTOMATIC LOGGING TO GOOGLE SHEETS UPON FEEDBACK SUBMISSION
     document.getElementById('feedback-gate-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const submitBtn = document.getElementById('submit-feedback-btn');
-        submitBtn.innerText = "Saving to Database...";
+        submitBtn.innerText = "Saving Feedback...";
         submitBtn.disabled = true;
 
-        const feedbackText = document.getElementById('trainingExperience').value;
+        const feedbackText = document.getElementById('trainingExperience').value.trim();
         const percentage = Math.round((scoreCount / currentQuestions.length) * 100);
         const status = percentage >= 70 ? "PASSED" : "FAILED";
 
-        // Append to local blog section UI
         storiesData.unshift({
             title: `${storiesData.length + 1}. Live Trainee Review`,
             author: `${traineeProfile.name} (${traineeProfile.dept})`,
@@ -1292,7 +1127,6 @@
         });
         renderBlogGrid();
 
-        // Send Record Payload to Google Apps Script Endpoint
         const payload = {
             certID: uniqueCertID,
             name: traineeProfile.name,
@@ -1303,25 +1137,23 @@
             feedback: feedbackText
         };
 
-        if (GOOGLE_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+        const completeSubmission = () => {
+            document.getElementById('feedback-gate-section').classList.add('hidden');
+            document.getElementById('certificate-unlocked-controls').classList.remove('hidden');
+        };
+
+        if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
-            }).then(() => {
-                document.getElementById('feedback-gate-section').classList.add('hidden');
-                document.getElementById('certificate-unlocked-controls').classList.remove('hidden');
-            }).catch(err => {
+            }).then(completeSubmission).catch(err => {
                 console.error("Error saving record:", err);
-                // Proceed even if network error occurs
-                document.getElementById('feedback-gate-section').classList.add('hidden');
-                document.getElementById('certificate-unlocked-controls').classList.remove('hidden');
+                completeSubmission();
             });
         } else {
-            // If URL is not replaced yet, bypass seamlessly
-            document.getElementById('feedback-gate-section').classList.add('hidden');
-            document.getElementById('certificate-unlocked-controls').classList.remove('hidden');
+            completeSubmission();
         }
     });
 
@@ -1333,124 +1165,205 @@
         uniqueCertID = generateUniqueCertificateID();
 
         document.getElementById('certificate-unlocked-controls').classList.add('hidden');
+        document.getElementById('submit-feedback-btn').disabled = false;
+        document.getElementById('submit-feedback-btn').innerText = "Submit Feedback & Unlock Certificate →";
+        document.getElementById('trainingExperience').value = '';
+
         resStep.classList.add('hidden');
         simStep.classList.remove('hidden');
         renderQuestion();
     }
 
-    // CERTIFICATE GENERATION
+    // REDESIGNED GREEN, WHITE, AND BLUE CERTIFICATE WITH DYNAMIC QR AND UNIQUE ID
     function downloadCertificate() {
         const canvas = document.getElementById('certCanvas');
         const ctx = canvas.getContext('2d');
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        const bgGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 100, canvas.width/2, canvas.height/2, 600);
-        bgGrad.addColorStop(0, '#0f172a');
-        bgGrad.addColorStop(1, '#020617');
-        ctx.fillStyle = bgGrad;
+        // 1. BASE BACKGROUND (Pristine Soft Cream/White)
+        ctx.fillStyle = '#f8fafc';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.strokeStyle = '#f59e0b';
-        ctx.lineWidth = 10;
-        ctx.strokeRect(25, 25, canvas.width - 50, canvas.height - 50);
+        // 2. SIERRA LEONE TRICOLOR DECORATIVE SIDE BARS (GREEN, WHITE, BLUE)
+        // Green Top Bar
+        ctx.fillStyle = '#008751';
+        ctx.fillRect(0, 0, canvas.width, 18);
 
-        ctx.strokeStyle = '#2563eb';
-        ctx.lineWidth = 3;
-        ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+        // Blue Bottom Bar
+        ctx.fillStyle = '#0052b4';
+        ctx.fillRect(0, canvas.height - 18, canvas.width, 18);
 
-        ctx.strokeStyle = '#06b6d4';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(46, 46, canvas.width - 92, canvas.height - 92);
+        // Decorative Side Accent Bands
+        const bandW = 12;
+        ctx.fillStyle = '#008751'; // Green Left
+        ctx.fillRect(0, 18, bandW, canvas.height - 36);
+        ctx.fillStyle = '#0052b4'; // Blue Right
+        ctx.fillRect(canvas.width - bandW, 18, bandW, canvas.height - 36);
 
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(20, 20, 30, 30);
-        ctx.fillRect(canvas.width - 50, 20, 30, 30);
-        ctx.fillRect(20, canvas.height - 50, 30, 30);
-        ctx.fillRect(canvas.width - 50, canvas.height - 50, 30, 30);
+        // 3. ELEGANT GOLDEN METALLIC BORDER FRAME
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 6;
+        ctx.strokeRect(30, 38, canvas.width - 60, canvas.height - 76);
 
+        ctx.strokeStyle = '#008751';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(40, 48, canvas.width - 80, canvas.height - 96);
+
+        // Corner Gold Accents
+        const cornerSize = 25;
+        ctx.fillStyle = '#fbbf24';
+        // Top Left Corner
+        ctx.fillRect(30, 38, cornerSize, cornerSize);
+        // Top Right Corner
+        ctx.fillRect(canvas.width - 30 - cornerSize, 38, cornerSize, cornerSize);
+        // Bottom Left Corner
+        ctx.fillRect(30, canvas.height - 38 - cornerSize, cornerSize, cornerSize);
+        // Bottom Right Corner
+        ctx.fillRect(canvas.width - 30 - cornerSize, canvas.height - 38 - cornerSize, cornerSize, cornerSize);
+
+        // 4. TOP EMBLEM (SIERRASHIELD SHIELD LOGO IN GREEN & BLUE)
         ctx.save();
-        ctx.translate(canvas.width / 2 - 25, 70);
+        ctx.translate(canvas.width / 2, 85);
         ctx.beginPath();
-        ctx.moveTo(25, 0); ctx.lineTo(48, 12); ctx.lineTo(48, 32);
-        ctx.quadraticCurveTo(48, 52, 25, 60); ctx.quadraticCurveTo(2, 52, 2, 32);
-        ctx.lineTo(2, 12); ctx.closePath();
-        ctx.fillStyle = '#1d4ed8'; ctx.fill();
-        ctx.strokeStyle = '#fbbf24'; ctx.lineWidth = 3; ctx.stroke();
-        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 20px sans-serif'; ctx.textAlign = 'center';
-        ctx.fillText('SH', 25, 36);
+        ctx.moveTo(0, -28); 
+        ctx.lineTo(24, -15); 
+        ctx.lineTo(24, 10);
+        ctx.quadraticCurveTo(24, 30, 0, 38); 
+        ctx.quadraticCurveTo(-24, 30, -24, 10);
+        ctx.lineTo(-24, -15); 
+        ctx.closePath();
+        ctx.fillStyle = '#008751'; 
+        ctx.fill();
+        ctx.strokeStyle = '#fbbf24'; 
+        ctx.lineWidth = 3; 
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 18px sans-serif'; 
+        ctx.textAlign = 'center';
+        ctx.fillText('SH', 0, 10);
         ctx.restore();
 
+        // 5. CERTIFICATE HEADER & TYPOGRAPHY
         ctx.textAlign = 'center';
-        ctx.fillStyle = '#f59e0b';
-        ctx.font = 'bold 22px sans-serif';
+
+        // Green Primary Sub-Header
+        ctx.fillStyle = '#008751';
+        ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.fillText('SIERRASHIELD CYBER SECURITY AWARENESS HUB', canvas.width / 2, 160);
 
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 30px Georgia, serif';
+        // Blue Main Certificate Title
+        ctx.fillStyle = '#0052b4';
+        ctx.font = '900 32px Georgia, serif';
         ctx.fillText('CERTIFICATE OF DEMONSTRATED COMPETENCY', canvas.width / 2, 205);
 
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '15px sans-serif';
-        ctx.fillText('This official credential is awarded to verify that', canvas.width / 2, 250);
+        ctx.fillStyle = '#475569';
+        ctx.font = 'italic 16px Georgia, serif';
+        ctx.fillText('This official credential is systematically issued to confirm that', canvas.width / 2, 248);
 
-        ctx.fillStyle = '#38edf8';
-        ctx.font = 'bold 38px sans-serif';
-        ctx.fillText(traineeProfile.name.toUpperCase(), canvas.width / 2, 305);
+        // Participant Name (Highlighted with Royal Blue & Underline Accent)
+        ctx.fillStyle = '#0052b4';
+        ctx.font = 'bold 38px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillText(traineeProfile.name.toUpperCase(), canvas.width / 2, 302);
 
-        ctx.fillStyle = '#e2e8f0';
-        ctx.font = '16px sans-serif';
-        ctx.fillText(`Has successfully completed the 10-Question Cyber Threat Evaluation`, canvas.width / 2, 360);
-        ctx.fillText(`Target SME Sector / Department: ${traineeProfile.dept}`, canvas.width / 2, 390);
+        // Decorative Underline for Name
+        ctx.strokeStyle = '#008751';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2 - 180, 315);
+        ctx.lineTo(canvas.width / 2 + 180, 315);
+        ctx.stroke();
 
+        // Description Text
+        ctx.fillStyle = '#1e293b';
+        ctx.font = '15px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillText(`Has successfully completed the 10-Question SME Cyber Threat Assessment`, canvas.width / 2, 355);
+        ctx.fillText(`Business Sector / Department: ${traineeProfile.dept}`, canvas.width / 2, 382);
+
+        // Verified Score Box (Green Background)
         const percentage = Math.round((scoreCount / currentQuestions.length) * 100);
-        ctx.fillStyle = '#10b981';
-        ctx.font = 'bold 22px sans-serif';
-        ctx.fillText(`Verified Performance Score: ${percentage}%`, canvas.width / 2, 440);
+        ctx.fillStyle = '#008751';
+        ctx.beginPath();
+        ctx.roundRect(canvas.width / 2 - 160, 410, 320, 38, 8);
+        ctx.fill();
 
-        ctx.fillStyle = '#fbbf24';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 18px sans-serif';
+        ctx.fillText(`VERIFIED SCORE: ${percentage}% PASS`, canvas.width / 2, 435);
+
+        // Unique Certificate Tracking Number
+        ctx.fillStyle = '#0052b4';
         ctx.font = 'bold 15px monospace';
         ctx.fillText(`UNIQUE CERTIFICATE ID: ${uniqueCertID}`, canvas.width / 2, 480);
 
+        // 6. OFFICIAL FOOTER SIGNATURES & INSTITUTION DETAILS
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#cbd5e1';
-        ctx.font = '13px sans-serif';
-        ctx.fillText(`Director / Researcher: Mohamed Saidu Bah`, 80, 580);
-        ctx.fillText(`Institution: IMATT College Dissertation Project`, 80, 605);
-        ctx.fillText(`Date Issued: ${traineeProfile.date}`, 80, 630);
 
+        // Director Signature Line
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(70, 585);
+        ctx.lineTo(340, 585);
+        ctx.stroke();
+
+        // Stylized Digital Signature Graphic
+        ctx.fillStyle = '#0052b4';
+        ctx.font = 'italic bold 22px Georgia, serif';
+        ctx.fillText('Mohamed Saidu Bah', 90, 575);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillText('Mohamed Saidu Bah', 70, 605);
+        ctx.fillStyle = '#64748b';
+        ctx.font = '12px sans-serif';
+        ctx.fillText('Lead Director & Cybersecurity Researcher', 70, 622);
+        ctx.fillText('IMATT College Final Project (Freetown, Sierra Leone)', 70, 639);
+        ctx.fillText(`Date Issued: ${traineeProfile.date}`, 70, 656);
+
+        // 7. GENERATE DYNAMIC QR CODE ON CANVAS
         const qrDiv = document.getElementById('qrcode-hidden');
         qrDiv.innerHTML = '';
         
-        const qrPayload = `SIERRASHIELD VERIFIED CERTIFICATE\nID: ${uniqueCertID}\nParticipant: ${traineeProfile.name}\nScore: ${percentage}%\nDate: ${traineeProfile.date}\nResearcher: Mohamed Saidu Bah (IMATT College)`;
+        const qrPayload = `SIERRASHIELD OFFICIAL CERTIFICATE VERIFICATION\n-----------------------------------\nCertificate ID: ${uniqueCertID}\nParticipant Name: ${traineeProfile.name}\nDepartment: ${traineeProfile.dept}\nFinal Score: ${percentage}%\nIssue Date: ${traineeProfile.date}\nDirector: Mohamed Saidu Bah (IMATT College)`;
 
         new QRCode(qrDiv, {
             text: qrPayload,
-            width: 100,
-            height: 100,
-            colorDark: "#000000",
+            width: 110,
+            height: 110,
+            colorDark: "#0052b4",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.H
         });
 
+        // Delay slight moment to render QR code image on Canvas
         setTimeout(() => {
-            const qrImg = qrDiv.querySelector('img');
+            const qrImg = qrDiv.querySelector('img') || qrDiv.querySelector('canvas');
             if (qrImg) {
+                // QR Border Box
                 ctx.fillStyle = '#ffffff';
-                ctx.fillRect(canvas.width - 200, 530, 120, 120);
-                ctx.drawImage(qrImg, canvas.width - 190, 540, 100, 100);
+                ctx.fillRect(canvas.width - 200, 525, 130, 130);
+                ctx.strokeStyle = '#008751';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(canvas.width - 200, 525, 130, 130);
+
+                // Draw QR Code
+                ctx.drawImage(qrImg, canvas.width - 190, 535, 110, 110);
                 
-                ctx.fillStyle = '#94a3b8';
-                ctx.font = '10px monospace';
+                // Label Below QR Code
+                ctx.fillStyle = '#008751';
+                ctx.font = 'bold 10px sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText('SCAN TO VERIFY', canvas.width - 140, 665);
+                ctx.fillText('SCAN TO VERIFY', canvas.width - 135, 672);
             }
 
+            // Trigger Download
             const a = document.createElement('a');
             a.download = `SierraShield_Certificate_${traineeProfile.name.replace(/\s+/g, '_')}_${uniqueCertID}.png`;
             a.href = canvas.toDataURL('image/png');
             a.click();
-        }, 300);
+        }, 350);
     }
 </script>
 
